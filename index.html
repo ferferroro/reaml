@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reaml Solutions — AI-Powered Websites for Philippine Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f8f8ff;
+    --bg2: #f0f0fa;
+    --bg3: #eaeaf5;
+    --surface: #ffffff;
+    --surface2: #ebebf5;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --accent: #6c63ff;
+    --accent2: #4e46d4;
+    --accent-glow: rgba(108,99,255,0.18);
+    --gold: #c47f00;
+    --gold-dim: rgba(196,127,0,0.12);
+    --text: #1a1830;
+    --text2: #4a4867;
+    --text3: #9997b0;
+    --green: #0ea86a;
+    --green-dim: rgba(14,168,106,0.12);
+    --nav-bg: rgba(248,248,255,0.85);
+    --radius: 12px;
+    --radius-lg: 20px;
+    --theme-transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --surface: #1c1c28;
+    --surface2: #22222f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --accent: #6c63ff;
+    --accent2: #a89cff;
+    --accent-glow: rgba(108,99,255,0.25);
+    --gold: #f0b429;
+    --gold-dim: rgba(240,180,41,0.15);
+    --text: #f0eff8;
+    --text2: #9997b0;
+    --text3: #5c5a72;
+    --green: #30d994;
+    --green-dim: rgba(48,217,148,0.12);
+    --nav-bg: rgba(10,10,15,0.75);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; line-height: 1.1; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.35rem; font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent2); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text2); text-decoration: none;
+    font-size: 0.9rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent); color: #fff !important;
+    padding: 0.5rem 1.25rem; border-radius: 8px;
+    font-weight: 500 !important; font-size: 0.875rem !important;
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(168,156,255,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 20%, transparent 80%);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--surface); border: 1px solid var(--border2);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.8rem; color: var(--text2); margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+  h1.hero-title {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    margin-bottom: 1.25rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-title .line2 {
+    display: block;
+    background: linear-gradient(135deg, var(--accent2) 0%, #c4b8ff 50%, var(--gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 540px;
+    font-size: 1.1rem; color: var(--text2); font-weight: 300;
+    margin-bottom: 2.5rem;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    padding: 0.85rem 2rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: #7d75ff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.4); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 0.85rem 2rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400;
+    text-decoration: none; border: 1px solid var(--border2); cursor: pointer;
+    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 700;
+    display: block; color: var(--text);
+  }
+  .hero-stat-label { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 6rem 1.5rem; }
+  .container { max-width: 1140px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 0.75rem; display: block;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800; letter-spacing: -0.025em;
+    color: var(--text); margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 1.05rem; color: var(--text2); max-width: 540px; font-weight: 300;
+  }
+
+  /* ─── SERVICES / PRICING ─── */
+  #services { background: var(--bg2); }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .plan-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    position: relative;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+  .plan-card:hover { transform: translateY(-4px); }
+  .plan-card.featured {
+    border-color: var(--accent);
+    background: linear-gradient(160deg, rgba(108,99,255,0.12) 0%, var(--surface) 50%);
+  }
+  .plan-badge {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.3rem 1rem; border-radius: 100px;
+    white-space: nowrap;
+  }
+  .plan-tier {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text3); margin-bottom: 0.5rem;
+  }
+  .plan-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem; font-weight: 800; color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .plan-tagline { font-size: 0.875rem; color: var(--text2); margin-bottom: 1.5rem; }
+  .plan-price {
+    display: flex; align-items: baseline; gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;
+  }
+  .plan-currency { font-size: 1.1rem; color: var(--text2); font-weight: 400; }
+  .plan-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.75rem; font-weight: 800; color: var(--text); line-height: 1;
+  }
+  .plan-period { font-size: 0.85rem; color: var(--text3); }
+  .plan-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .plan-features li {
+    font-size: 0.9rem; color: var(--text2);
+    display: flex; align-items: flex-start; gap: 0.65rem; line-height: 1.4;
+  }
+  .plan-features li .feat-icon {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; font-size: 10px;
+  }
+  .feat-check { background: var(--green-dim); color: var(--green); }
+  .feat-star { background: var(--gold-dim); color: var(--gold); }
+  .plan-cta {
+    display: block; text-align: center;
+    padding: 0.85rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; transition: all 0.25s; cursor: pointer; border: none;
+    width: 100%;
+  }
+  .plan-cta-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .plan-cta-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+  .plan-cta-filled {
+    background: var(--accent); color: #fff; border: none;
+  }
+  .plan-cta-filled:hover { background: #7d75ff; box-shadow: 0 6px 25px rgba(108,99,255,0.4); }
+  .plan-cta-gold {
+    background: transparent; color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  .plan-cta-gold:hover { background: var(--gold-dim); }
+
+  /* ─── PORTFOLIO ─── */
+  #portfolio { background: var(--bg); }
+  .portfolio-header { margin-bottom: 3.5rem; }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .portfolio-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+    cursor: pointer;
+  }
+  .portfolio-card:hover { transform: translateY(-4px); border-color: var(--border2); }
+  .portfolio-preview {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pf1 { background: linear-gradient(135deg, #1a1035 0%, #2d1b5e 100%); }
+  .pf2 { background: linear-gradient(135deg, #0f1f1a 0%, #0d3325 100%); }
+  .pf3 { background: linear-gradient(135deg, #1a0f0f 0%, #3a1515 100%); }
+  .portfolio-mockup {
+    width: 80%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    padding: 1rem;
+  }
+  .pm-bar { height: 8px; border-radius: 4px; margin-bottom: 8px; }
+  .pm-bar.short { width: 40%; }
+  .pm-bar.med { width: 65%; }
+  .pm-bar.long { width: 90%; }
+  .pf1 .pm-bar { background: rgba(108,99,255,0.4); }
+  .pf2 .pm-bar { background: rgba(48,217,148,0.35); }
+  .pf3 .pm-bar { background: rgba(240,180,41,0.35); }
+  .pm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px; }
+  .pm-block { height: 40px; border-radius: 6px; }
+  .pf1 .pm-block { background: rgba(108,99,255,0.2); }
+  .pf2 .pm-block { background: rgba(48,217,148,0.15); }
+  .pf3 .pm-block { background: rgba(240,180,41,0.15); }
+  .portfolio-info { padding: 1.5rem; }
+  .portfolio-tag {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.25rem 0.75rem; border-radius: 100px; margin-bottom: 0.65rem;
+  }
+  .tag-purple { background: rgba(108,99,255,0.15); color: var(--accent2); }
+  .tag-green { background: var(--green-dim); color: var(--green); }
+  .tag-gold { background: var(--gold-dim); color: var(--gold); }
+  .portfolio-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem;
+  }
+  .portfolio-desc { font-size: 0.875rem; color: var(--text2); }
+  .portfolio-meta {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .portfolio-location { font-size: 0.8rem; color: var(--text3); display: flex; align-items: center; gap: 0.35rem; }
+  .portfolio-arrow { color: var(--text3); font-size: 0.9rem; transition: color 0.2s, transform 0.2s; }
+  .portfolio-card:hover .portfolio-arrow { color: var(--accent2); transform: translateX(3px); }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--bg2); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start;
+    margin-top: 3.5rem;
+  }
+  .contact-info { }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .contact-detail h4 { font-size: 0.85rem; color: var(--text3); margin-bottom: 0.15rem; font-weight: 400; }
+  .contact-detail p { font-size: 0.95rem; color: var(--text); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.8rem; color: var(--text3); font-weight: 400; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--surface); border: 1px solid var(--border2);
+    color: var(--text); border-radius: 10px;
+    padding: 0.8rem 1rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none; transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--accent2); }
+  .form-group select { cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text3); }
+  .form-submit {
+    background: var(--accent); color: #fff;
+    padding: 0.9rem 2rem; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+    border: none; cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .form-submit:hover { background: #7d75ff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,0.35); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text3); font-size: 0.85rem;
+  }
+  footer strong { color: var(--text2); font-weight: 500; }
+
+  /* ─── CHAT WIDGET ─── */
+  #chat-launcher {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--accent);
+    border: none; cursor: pointer;
+    box-shadow: 0 6px 30px rgba(108,99,255,0.55);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-size: 1.35rem;
+  }
+  #chat-launcher:hover { transform: scale(1.08); box-shadow: 0 10px 40px rgba(108,99,255,0.65); }
+  .chat-pulse {
+    position: absolute; inset: 0; border-radius: 50%;
+    background: var(--accent); animation: chatPulse 2.5s infinite; z-index: -1;
+  }
+  @keyframes chatPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70% { transform: scale(1.55); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .chat-notif {
+    position: absolute; top: 2px; right: 2px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--bg);
+    font-size: 7px; color: #000; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  #chat-window {
+    position: fixed; bottom: 6.5rem; right: 2rem; z-index: 200;
+    width: 380px; max-height: 580px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    opacity: 0; transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  #chat-window.open {
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
+  }
+  .chat-header {
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .chat-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #a89cff);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0; position: relative;
+  }
+  .chat-avatar-dot {
+    position: absolute; bottom: 1px; right: 1px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--green); border: 2px solid var(--surface);
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); }
+  .chat-header-status { font-size: 0.75rem; color: var(--green); }
+  .chat-close {
+    background: none; border: none; color: var(--text3);
+    cursor: pointer; font-size: 1.1rem; padding: 0.25rem;
+    transition: color 0.2s; line-height: 1;
+  }
+  .chat-close:hover { color: var(--text); }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+  .chat-msg { display: flex; gap: 0.6rem; align-items: flex-end; animation: msgIn 0.3s ease; }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .chat-msg.user { flex-direction: row-reverse; }
+  .msg-bubble {
+    max-width: 78%; padding: 0.65rem 1rem; border-radius: 16px;
+    font-size: 0.875rem; line-height: 1.5;
+  }
+  .chat-msg.bot .msg-bubble {
+    background: var(--surface2); color: var(--text);
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.user .msg-bubble {
+    background: var(--accent); color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .msg-mini-avatar {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), #a89cff);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+  }
+  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 0.65rem 1rem; }
+  .typing-indicator span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--text3); animation: typingDot 1.2s infinite;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .quick-replies {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    padding: 0 1rem 0.75rem;
+  }
+  .quick-reply {
+    background: transparent; color: var(--accent2);
+    border: 1px solid rgba(168,156,255,0.3); border-radius: 100px;
+    padding: 0.35rem 0.9rem; font-size: 0.78rem; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+  }
+  .quick-reply:hover { background: rgba(168,156,255,0.1); border-color: var(--accent2); }
+
+  .chat-input-area {
+    padding: 0.75rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    display: flex; gap: 0.5rem; align-items: center;
+  }
+  #chat-input {
+    flex: 1; background: var(--bg3); border: 1px solid var(--border2);
+    color: var(--text); border-radius: 10px;
+    padding: 0.65rem 1rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; outline: none; transition: border-color 0.2s;
+  }
+  #chat-input:focus { border-color: var(--accent2); }
+  #chat-input::placeholder { color: var(--text3); }
+  #chat-send {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--accent); border: none;
+    color: #fff; cursor: pointer; font-size: 0.9rem;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  #chat-send:hover { background: #7d75ff; transform: scale(1.05); }
+
+  /* ─── THEME TOGGLE ─── */
+  body, nav, section, footer, .plan-card, .portfolio-card, .chat-header,
+  #chat-window, .chat-input-area, .msg-bubble, #chat-input,
+  .form-group input, .form-group select, .form-group textarea {
+    transition: var(--theme-transition);
+  }
+  #theme-toggle {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    width: 36px; height: 36px; border-radius: 8px;
+    cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; flex-shrink: 0;
+  }
+  #theme-toggle:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    #chat-window { width: calc(100vw - 2rem); right: 1rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Reaml<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button id="theme-toggle" aria-label="Toggle theme" onclick="toggleTheme()">🌙</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Serving businesses across the Philippines
+  </div>
+  <h1 class="hero-title">
+    Websites That Work.
+    <span class="line2">AI That Converts.</span>
+  </h1>
+  <p class="hero-sub">
+    We build fast, modern websites with embedded AI chatbots that turn visitors into customers — designed for Filipino local businesses.
+  </p>
+  <div class="hero-actions">
+    <a href="#services" class="btn-primary">See Our Plans →</a>
+    <a href="#portfolio" class="btn-outline">View Portfolio</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">50+</span>
+      <span class="hero-stat-label">Clients Served</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">3×</span>
+      <span class="hero-stat-label">Avg. Lead Increase</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">24/7</span>
+      <span class="hero-stat-label">AI Support</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / PRICING -->
+<section id="services">
+  <div class="container">
+    <span class="section-label">Pricing Plans</span>
+    <h2 class="section-title">Pick the Right Plan</h2>
+    <p class="section-sub">No hidden fees. Every plan includes hosting setup guidance and a mobile-first design.</p>
+
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-tier">Starter</div>
+        <div class="plan-name">Free</div>
+        <div class="plan-tagline">Perfect for getting your business online</div>
+        <div class="plan-price">
+          <span class="plan-currency">₱</span>
+          <span class="plan-amount">0</span>
+          <span class="plan-period">one-time</span>
+        </div>
+        <ul class="plan-features">
+          <li><span class="feat-icon feat-check">✓</span> 1-page landing site</li>
+          <li><span class="feat-icon feat-check">✓</span> Mobile-responsive design</li>
+          <li><span class="feat-icon feat-check">✓</span> Contact form integration</li>
+          <li><span class="feat-icon feat-check">✓</span> Google Maps embed</li>
+          <li><span class="feat-icon feat-check">✓</span> Basic SEO setup</li>
+          <li><span class="feat-icon feat-check">✓</span> Social media links</li>
+        </ul>
+        <a href="#contact" class="plan-cta plan-cta-outline">Get Started Free</a>
+      </div>
+
+      <!-- PRO -->
+      <div class="plan-card featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-tier">Professional</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-tagline">For growing businesses that want more leads</div>
+        <div class="plan-price">
+          <span class="plan-currency">₱</span>
+          <span class="plan-amount">14,999</span>
+          <span class="plan-period">one-time</span>
+        </div>
+        <ul class="plan-features">
+          <li><span class="feat-icon feat-check">✓</span> Up to 5-page website</li>
+          <li><span class="feat-icon feat-check">✓</span> AI chatbot (FAQ-trained)</li>
+          <li><span class="feat-icon feat-check">✓</span> Lead capture & CRM integration</li>
+          <li><span class="feat-icon feat-check">✓</span> On-page SEO optimization</li>
+          <li><span class="feat-icon feat-star">★</span> Custom branding & animations</li>
+          <li><span class="feat-icon feat-star">★</span> 3 months free support</li>
+        </ul>
+        <a href="#contact" class="plan-cta plan-cta-filled">Start with Pro →</a>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="plan-card">
+        <div class="plan-tier">Enterprise</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-tagline">Full-scale digital presence with smart automation</div>
+        <div class="plan-price">
+          <span class="plan-currency">₱</span>
+          <span class="plan-amount">39,999</span>
+          <span class="plan-period">one-time</span>
+        </div>
+        <ul class="plan-features">
+          <li><span class="feat-icon feat-check">✓</span> Unlimited pages + blog</li>
+          <li><span class="feat-icon feat-check">✓</span> Advanced AI chatbot (GPT-powered)</li>
+          <li><span class="feat-icon feat-check">✓</span> E-commerce ready (GCash/PayMaya)</li>
+          <li><span class="feat-icon feat-check">✓</span> Google Ads landing pages</li>
+          <li><span class="feat-icon feat-star">★</span> Analytics dashboard</li>
+          <li><span class="feat-icon feat-star">★</span> 12 months priority support</li>
+        </ul>
+        <a href="#contact" class="plan-cta plan-cta-gold">Talk to Sales →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <span class="section-label">Our Work</span>
+      <h2 class="section-title">Built for Filipino Businesses</h2>
+      <p class="section-sub">Real websites, real results. Each project is custom-designed to match the client's brand and goals.</p>
+    </div>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-card">
+        <div class="portfolio-preview pf1">
+          <div class="portfolio-mockup">
+            <div class="pm-bar long"></div>
+            <div class="pm-bar med"></div>
+            <div class="pm-bar short"></div>
+            <div class="pm-grid">
+              <div class="pm-block"></div><div class="pm-block"></div>
+              <div class="pm-block"></div><div class="pm-block"></div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <span class="portfolio-tag tag-purple">Restaurant</span>
+          <div class="portfolio-name">Kape ni Lola</div>
+          <div class="portfolio-desc">Online menu, reservations, and AI chatbot handling 80% of customer inquiries automatically.</div>
+          <div class="portfolio-meta">
+            <span class="portfolio-location">📍 Angeles City, Pampanga</span>
+            <span class="portfolio-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-preview pf2">
+          <div class="portfolio-mockup">
+            <div class="pm-bar long"></div>
+            <div class="pm-bar short"></div>
+            <div class="pm-bar med"></div>
+            <div class="pm-grid">
+              <div class="pm-block"></div><div class="pm-block"></div>
+              <div class="pm-block"></div><div class="pm-block"></div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <span class="portfolio-tag tag-green">Real Estate</span>
+          <div class="portfolio-name">BayCourt Properties</div>
+          <div class="portfolio-desc">Property listings portal with AI chatbot that qualifies leads and books viewings 24/7.</div>
+          <div class="portfolio-meta">
+            <span class="portfolio-location">📍 Cebu City, Cebu</span>
+            <span class="portfolio-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-card">
+        <div class="portfolio-preview pf3">
+          <div class="portfolio-mockup">
+            <div class="pm-bar med"></div>
+            <div class="pm-bar long"></div>
+            <div class="pm-bar short"></div>
+            <div class="pm-grid">
+              <div class="pm-block"></div><div class="pm-block"></div>
+              <div class="pm-block"></div><div class="pm-block"></div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-info">
+          <span class="portfolio-tag tag-gold">Retail</span>
+          <div class="portfolio-name">Luzon Crafts Co.</div>
+          <div class="portfolio-desc">E-commerce shop with GCash integration and an AI assistant helping customers find products.</div>
+          <div class="portfolio-meta">
+            <span class="portfolio-location">📍 Quezon City, Metro Manila</span>
+            <span class="portfolio-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-title">Start Your Project</h2>
+    <p class="section-sub">We'll get back to you within 24 hours. Free consultation included.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-detail">
+          <div class="contact-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p>hello@reamlsolutions.ph</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📱</div>
+          <div>
+            <h4>WhatsApp / Viber</h4>
+            <p>+63 917 000 0000</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Based in</h4>
+            <p>Angeles City, Pampanga — serving nationwide</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <h4>Office Hours</h4>
+            <p>Mon–Sat, 9AM–6PM PHT</p>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Juan" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Dela Cruz" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="juan@business.com" required>
+        </div>
+        <div class="form-group">
+          <label>Business Type</label>
+          <select>
+            <option value="">Select your industry</option>
+            <option>Restaurant / Food & Beverage</option>
+            <option>Retail / E-commerce</option>
+            <option>Real Estate</option>
+            <option>Healthcare / Clinic</option>
+            <option>Salon / Beauty</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Plan of Interest</label>
+          <select>
+            <option value="">Choose a plan</option>
+            <option>Free — Just getting started</option>
+            <option>Pro — ₱14,999 one-time</option>
+            <option>Business — ₱39,999 one-time</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your business</label>
+          <textarea placeholder="What does your business do? What are your goals?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Send Message →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <strong>Reaml Solutions</strong>. Crafted with care in the Philippines. 🇵🇭</p>
+</footer>
+
+<!-- CHAT LAUNCHER -->
+<button id="chat-launcher" onclick="toggleChat()" aria-label="Open chat">
+  <div class="chat-pulse"></div>
+  <span id="chat-icon">💬</span>
+  <div class="chat-notif">1</div>
+</button>
+
+<!-- CHAT WINDOW -->
+<div id="chat-window" role="dialog" aria-label="Reaml Support Chat">
+  <div class="chat-header">
+    <div class="chat-avatar">
+      🤖
+      <div class="chat-avatar-dot"></div>
+    </div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Reaml AI</div>
+      <div class="chat-header-status">● Online — replies instantly</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">
+      <div class="msg-mini-avatar">🤖</div>
+      <div class="msg-bubble">Hi! 👋 I'm the Reaml AI assistant. I can help you learn about our services, pricing, or get you started with a free consultation. What would you like to know?</div>
+    </div>
+  </div>
+
+  <div class="quick-replies" id="quick-replies">
+    <button class="quick-reply" onclick="sendQuickReply(this, 'What's included in the Free plan?')">Free plan details</button>
+    <button class="quick-reply" onclick="sendQuickReply(this, 'How does the AI chatbot work?')">AI chatbot info</button>
+    <button class="quick-reply" onclick="sendQuickReply(this, 'How long does it take to build a site?')">Timeline</button>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="handleChatKey(event)">
+    <button id="chat-send" onclick="sendChatMessage()" aria-label="Send">➤</button>
+  </div>
+</div>
+
+<script>
+  // ─── THEME TOGGLE ───
+  function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('reaml-theme', next);
+  }
+
+  (function () {
+    const saved = localStorage.getItem('reaml-theme') || 'light';
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-toggle').textContent = '☀️';
+    }
+  })();
+
+  // ─── CHAT LOGIC ───
+  const botResponses = {
+    'free': "The Free plan gives you a 1-page landing site with contact form, Google Maps embed, basic SEO, and social media links — perfect for getting your business online at zero cost! 🎉",
+    'pro': "The Pro plan (₱14,999) includes up to 5 pages, a trained AI chatbot, lead capture, custom animations, and 3 months of free support. It's our most popular choice! ⭐",
+    'business': "The Business plan (₱39,999) is our full package — unlimited pages, GPT-powered AI chatbot, e-commerce with GCash/PayMaya, and 12 months of priority support. 🚀",
+    'chatbot': "Our AI chatbots are trained on your business info — FAQs, products, services. They answer customers 24/7, capture leads automatically, and can even book appointments. Pro plan and above includes one!",
+    'timeline': "Timeline depends on the plan: Free = 3–5 days, Pro = 1–2 weeks, Business = 2–4 weeks. We move fast and keep you updated throughout! ⏱️",
+    'price': "Our plans start at ₱0 (Free), ₱14,999 (Pro), and ₱39,999 (Business). All are one-time fees — no monthly subscriptions unless you want ongoing support.",
+    'contact': "You can reach us at hello@reamlsolutions.ph, or WhatsApp/Viber us at +63 917 000 0000. Or just fill out the contact form below! 👇",
+    'default': "Great question! Our team specializes in websites + AI chatbots for local Philippine businesses. Want me to connect you with our team for a free consultation? You can reach us via the contact form below! 😊"
+  };
+
+  function getBotResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('free')) return botResponses.free;
+    if (m.includes('pro') && !m.includes('price')) return botResponses.pro;
+    if (m.includes('business') || m.includes('enterprise')) return botResponses.business;
+    if (m.includes('chatbot') || m.includes('ai') || m.includes('how does')) return botResponses.chatbot;
+    if (m.includes('timeline') || m.includes('long') || m.includes('how long') || m.includes('fast')) return botResponses.timeline;
+    if (m.includes('price') || m.includes('cost') || m.includes('₱') || m.includes('fee') || m.includes('plan')) return botResponses.price;
+    if (m.includes('contact') || m.includes('reach') || m.includes('email') || m.includes('phone')) return botResponses.contact;
+    return botResponses.default;
+  }
+
+  let chatOpen = false;
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    const win = document.getElementById('chat-window');
+    const icon = document.getElementById('chat-icon');
+    const notif = document.querySelector('.chat-notif');
+    win.classList.toggle('open', chatOpen);
+    icon.textContent = chatOpen ? '✕' : '💬';
+    if (chatOpen) { notif.style.display = 'none'; }
+  }
+
+  function addMessage(text, role) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + role;
+    if (role === 'bot') {
+      div.innerHTML = `<div class="msg-mini-avatar">🤖</div><div class="msg-bubble">${text}</div>`;
+    } else {
+      div.innerHTML = `<div class="msg-bubble">${text}</div>`;
+    }
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg bot'; div.id = 'typing';
+    div.innerHTML = `<div class="msg-mini-avatar">🤖</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typing');
+    if (t) t.remove();
+  }
+
+  function sendChatMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    document.getElementById('quick-replies').style.display = 'none';
+    addMessage(text, 'user');
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      addMessage(getBotResponse(text), 'bot');
+    }, 900 + Math.random() * 400);
+  }
+
+  function sendQuickReply(btn, text) {
+    document.getElementById('quick-replies').style.display = 'none';
+    addMessage(text, 'user');
+    showTyping();
+    setTimeout(() => {
+      removeTyping();
+      addMessage(getBotResponse(text), 'bot');
+    }, 900 + Math.random() * 400);
+  }
+
+  function handleChatKey(e) { if (e.key === 'Enter') sendChatMessage(); }
+
+  // ─── FORM SUBMIT ───
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = 'var(--green)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+
+  // ─── NAV SCROLL EFFECT ───
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.borderBottomColor = window.scrollY > 50 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.07)';
+  });
+</script>
+</body>
+</html>
